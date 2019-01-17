@@ -334,7 +334,8 @@ text-decoration: none
 	background-color:red;
 	position: fixed;
 	bottom:0;
+	bottom: calc(calc(var(--vh, 1vh) * 0));
 	width:100vw;
 	height:10vh;
-	bottom: calc(calc(var(--vh, 1vh) * 10));
+	height: calc(calc(var(--vh, 1vh) * 10));
 }
