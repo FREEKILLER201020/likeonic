@@ -307,8 +307,8 @@ text-decoration: none
 	padding-left: 5vw;
 	padding-right: 5vw;
 	text-align: center;
-	height: 20vh;
-	height: calc(var(--vh, 1vh) * 20);
+	height: 10vh;
+	height: calc(var(--vh, 1vh) * 10);
 	background-color: blue;
 	/* margin: 5px; */
 }
