@@ -335,5 +335,6 @@ text-decoration: none
 	position: fixed;
 	bottom:0;
 	width:100vw;
-	height:10vh
+	height:10vh;
+	bottom: calc(calc(var(--vh, 1vh) * 10));
 }
