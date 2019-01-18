@@ -309,11 +309,11 @@ text-decoration: none
 	text-align: center;
 	height: 10vh;
 	height: calc(var(--vh, 1vh) * 10);
-	background-color: blue;
+	/* background-color: blue; */
 	/* margin: 5px; */
 }
 .test_fit_class{
-	background-color: green;
+	/* background-color: green; */
 	font-weight: 300 !important;
 	position: fixed !important;
 	bottom: 10vh;
@@ -331,7 +331,7 @@ text-decoration: none
 }
 
 .bottom_space{
-	background-color:red;
+	/* background-color:red; */
 	position: fixed;
 	bottom:0;
 	bottom: calc(calc(var(--vh, 1vh) * 0));
