@@ -297,8 +297,8 @@ text-decoration: none
 	font-weight: 300 !important;
 	position: fixed;
 	/* top: 10vh; */
-	top: 10vh; /* Fallback for browsers that do not support Custom Properties */
- 	top: calc(var(--vh, 1vh) * 10);
+	top: 15vh; /* Fallback for browsers that do not support Custom Properties */
+ 	top: calc(var(--vh, 1vh) * 15);
 	/* left: 3vw; */
 	width: 90vw;
 	/* background: #55555; */
