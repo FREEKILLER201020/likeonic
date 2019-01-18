@@ -356,8 +356,8 @@ text-decoration: none
 		padding-left: 5vw;
 		padding-right: 5vw;
 		text-align: center;
-		height: 90vh;
-		height: calc(var(--vh, 1vh) * 80);
+		height: 70vh;
+		height: calc(var(--vh, 1vh) * 70);
 		/* margin: 5px; */
 
 }

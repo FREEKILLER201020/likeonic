@@ -1,39 +1,56 @@
 <div class="swiper-slide" <?php echo emilynolan_slide_options(); ?>>
-		<div class="slide-inner" data-swiper-parallax="<?php echo esc_attr('45%'); ?>">
-			<div class="overlay"></div>
-			<?php if ($video != '') : ?>
-			<div class="slide-inner--video">
-				<video loop muted autoplay class="fullscreen-bg__video">
-					<source src="<?php echo esc_url($video); ?>" type="video/mp4">
-    			</video>
-			</div>
-			<?php else: ?>
-				<div class="slide-inner--image" style="background-image: url('<?php echo esc_url($image);?>');"></div>
-			<?php endif; ?>
-			<div class="slide-inner--info">
+  <div class="slide-inner" data-swiper-parallax="<?php echo esc_attr('45%'); ?>">
+    <div class="overlay"></div>
+    <?php if ($video != '') : ?>
+    <div class="slide-inner--video">
+      <video loop muted autoplay class="fullscreen-bg__video">
+        <source src="<?php echo esc_url($video); ?>" type="video/mp4">
+      </video>
+    </div>
+    <?php else: ?>
+    <div class="slide-inner--image" style="background-image: url('<?php echo esc_url($image);?>');"></div>
+    <?php endif; ?>
+    <div class="slide-inner--info">
 
-				<section id="slider<?php echo $index; ?>" >
-			        <!--<div class="bg"></div>-->
-							<?php
-        echo $map;
+      <section id="slider<?php echo $index; ?>">
+        <!--<div class="bg"></div>-->
+        <?php echo $map;?>
+        <img id="img1" class="custom_image n1" src="<?php echo esc_url($image2);?>" />
+        <div class="test2_fit_class">
+          <div style="color: white !important; z-index:10 !important; bottom:0;">
+            <?php echo $title;?>
+          </div>
+        </div>
+        <div class="test_fit_class">
+          <div style="color: white !important; z-index:10 !important;">
+            <?php echo $text;?>
 
-                        ?>
-				    <img id="img1" class="custom_image n1"src="<?php echo esc_url($image2);?>" />
-				    <div class="test2_fit_class">
-                		<div style="color: white !important; z-index:10 !important; bottom:0;">
-                 		 <?php echo $title;?>
-               			 </div>
-				    </div>
-           		 	<div class="test_fit_class">
-									<div style="color: white !important; z-index:10 !important;">
-									<?php echo $text;?>
-
-                  <a style="color:#06D6A0;"href="<?php echo $link ?>"><?php echo $link_text ?></a>
-									</div>
-
-		 </div>
-					<div class="bottom_space">
-					</div>
-			</div>
-		</div>
-	</div>
+            <a style="color:#06D6A0;" href="<?php echo $link ?>">
+              <?php echo $link_text ?></a>
+          </div>
+        </div>
+        <div class="mobile_field">
+          <div class="header_text" style="color: white !important; z-index:10 !important; bottom:0;">
+            <?php echo $title;?>
+          </div>
+          <div style="color: white !important; z-index:10 !important;">
+            <?php echo $text;?>
+            <a style="color:#06D6A0;" href="<?php echo $link ?>">
+              <?php echo $link_text ?></a>
+          </div>
+        </div>
+        <script type="text/javascript">
+          if ((isMobileDevice()) && (height>width)){
+            var list1=document.getElementsByClassName('test_fit_class');
+            var list2=document.getElementsByClassName('test2_fit_class');
+            for (var i=0; i<list1.length; i++){
+              list1[i].style.visibility = "hidden";
+            }
+            for (var i=0; i<list2.length; i++){
+              list2[i].style.visibility = "hidden";
+            }
+          }
+        </script>
+    </div>
+  </div>
+</div>
