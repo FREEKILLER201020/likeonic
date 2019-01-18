@@ -303,7 +303,7 @@ text-decoration: none
 	width: 90vw;
 	/* background: #55555; */
 	vertical-align: bottom;
-	font-size:300px;
+	font-size:100px;
 	padding-left: 5vw;
 	padding-right: 5vw;
 	text-align: center;
@@ -316,17 +316,17 @@ text-decoration: none
 	background-color: green;
 	font-weight: 300 !important;
 	position: fixed !important;
-	bottom: 20vh;
-	bottom: calc(calc(var(--vh, 1vh) * 20));
+	bottom: 10vh;
+	bottom: calc(calc(var(--vh, 1vh) * 10));
 	/* left: 3vw; */
 	width: 90vw;
 	background:#55555;
-	font-size:300px;
+	font-size:100px;
 	padding-left: 5vw;
 	padding-right: 5vw;
 	text-align: center;
-	height: 55vh;
-	height: calc(var(--vh, 1vh) * 55);
+	height: 65vh;
+	height: calc(var(--vh, 1vh) * 65);
 	/* margin: 5px; */
 }
 
@@ -336,6 +336,6 @@ text-decoration: none
 	bottom:0;
 	bottom: calc(calc(var(--vh, 1vh) * 0));
 	width:100vw;
-	height:20vh;
-	height: calc(calc(var(--vh, 1vh) * 20));
+	height:10vh;
+	height: calc(calc(var(--vh, 1vh) * 10));
 }
