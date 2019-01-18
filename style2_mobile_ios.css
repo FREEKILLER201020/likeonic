@@ -297,8 +297,8 @@ text-decoration: none
 	font-weight: 300 !important;
 	position: fixed;
 	/* top: 10vh; */
-	top: 15vh; /* Fallback for browsers that do not support Custom Properties */
- 	top: calc(var(--vh, 1vh) * 15);
+	top: 10vh; /* Fallback for browsers that do not support Custom Properties */
+ 	top: calc(var(--vh, 1vh) * 10);
 	/* left: 3vw; */
 	width: 90vw;
 	/* background: #55555; */
@@ -325,8 +325,8 @@ text-decoration: none
 	padding-left: 5vw;
 	padding-right: 5vw;
 	text-align: center;
-	height: 55vh;
-	height: calc(var(--vh, 1vh) * 55);
+	height: 50vh;
+	height: calc(var(--vh, 1vh) * 50);
 	/* margin: 5px; */
 }
 
