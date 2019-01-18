@@ -339,3 +339,25 @@ text-decoration: none
 	height:10vh;
 	height: calc(calc(var(--vh, 1vh) * 10));
 }
+
+.header_text{
+	font-size: 200%;
+}
+.mobile_field{
+		/* background-color: green; */
+		font-weight: 300 !important;
+		position: fixed !important;
+		bottom: 10vh;
+		bottom: calc(calc(var(--vh, 1vh) * 10));
+		/* left: 3vw; */
+		width: 90vw;
+		background:#55555;
+		font-size:100px;
+		padding-left: 5vw;
+		padding-right: 5vw;
+		text-align: center;
+		height: 90vh;
+		height: calc(var(--vh, 1vh) * 80);
+		/* margin: 5px; */
+
+}
