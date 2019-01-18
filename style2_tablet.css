@@ -384,7 +384,7 @@ margin-bottom: 2vmin !important;
 	width: 40vw;
 	background: #55555;
 	vertical-align: bottom;
-	font-size:300px;
+	font-size:100px;
 	height: 20vh;
 	height: calc(var(--vh, 1vh) * 20);
 }
@@ -395,7 +395,7 @@ margin-bottom: 2vmin !important;
 	left: 3vw;
 	width: 40vw;
 	background:#55555;
-	font-size:300px;
+	font-size:100px;
 	height: 50vh;
 	height: calc(var(--vh, 1vh) * 50);
 }
