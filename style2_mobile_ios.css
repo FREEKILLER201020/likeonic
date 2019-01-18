@@ -307,8 +307,8 @@ text-decoration: none
 	padding-left: 5vw;
 	padding-right: 5vw;
 	text-align: center;
-	height: 20vh;
-	height: calc(var(--vh, 1vh) * 20);
+	height: 25vh;
+	height: calc(var(--vh, 1vh) * 25);
 	/* background-color: blue; */
 	/* margin: 5px; */
 }
@@ -325,8 +325,8 @@ text-decoration: none
 	padding-left: 5vw;
 	padding-right: 5vw;
 	text-align: center;
-	height: 50vh;
-	height: calc(var(--vh, 1vh) * 50);
+	height: 45vh;
+	height: calc(var(--vh, 1vh) * 45);
 	/* margin: 5px; */
 }
 
