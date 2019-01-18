@@ -116,7 +116,7 @@
       // `Inline block ensure it takes on the size of its contents, even if they are enclosed
       // in other tags like <p>
       innerSpan.style['display'] = 'inline-block';
-      if ((settings.alignBottom) && (!isMobileDevice())) {
+      if (settings.alignBottom) {
         innerSpan.style['position'] = 'absolute';
         innerSpan.style['bottom'] = '0';
       }
