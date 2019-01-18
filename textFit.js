@@ -116,6 +116,8 @@
       // `Inline block ensure it takes on the size of its contents, even if they are enclosed
       // in other tags like <p>
       innerSpan.style['display'] = 'inline-block';
+      var width = document.documentElement.clientWidth;
+      var height = document.documentElement.clientHeight;
       if ((settings.alignBottom) && (height <= width)) {
         innerSpan.style['position'] = 'absolute';
         innerSpan.style['bottom'] = '0';
