@@ -121,6 +121,7 @@
       if ((settings.alignBottom) && (height <= width)) {
         innerSpan.style['position'] = 'absolute';
         innerSpan.style['bottom'] = '0';
+      } else {
         innerSpan.style['margin-left'] = '10px';
         innerSpan.style['margin-right'] = '10px';
       }
