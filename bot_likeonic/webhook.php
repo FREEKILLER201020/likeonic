@@ -26,6 +26,7 @@ pg_close($dbconn);
 function Start($message, $bot) {
 	$nick = $message->getFrom()->getUsername();
 	$name = $message->getFrom()->getFirstName();
+	SaveUser($message->getFrom()->getId(), $nick, $name);
 	// $query = "INSERT INTO users" . $db_name . " (id, username,name,chat_id) values ({$message->getFrom()->getId()},'$nick','$name',{$message->getChat()->getId()});\n";
 	// $result = pg_query($query) or $answer = 'Не удалось соединиться: ' . pg_last_error();
 	// if (mb_stripos($answer, "Не удалось соединиться:") !== false) {
@@ -39,17 +40,9 @@ function Start($message, $bot) {
 	// }
 	$answer = 'Добро пожаловать ' . $name . '!';
 	$bot->sendMessage($message->getChat()->getId(), $answer);
-	$answer = 'Вы состоите в каком-нибудь клане?';
-	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup(
-		[
-			[
-				["text" => "Да!"],
-				["text" => "Нет :("],
-			],
-		]
-		, true, true);
-
-	$bot->sendMessage($message->getChat()->getId(), $answer, false, null, null, $keyboard);
 }
-
+function SaveUser($id, $nick, $name) {
+	$query = pg_escape_string("INSERT INTO users (id, username,name) values ({$id},'$nick','$name');\n");
+	pg_execute($query);
+}
 ?>

@@ -9,7 +9,7 @@ CREATE TABLE public.messages_history (
   -- Время сообщения
   timemark timestamp,
   -- id сообщения
-  id integer UNIQUE,
+  id SERIAL,
   -- текст сообщения
   message text,
   -- из какого чата сообщение
@@ -61,7 +61,7 @@ ALTER TABLE public.chat_state
 -- Список всех чатов (!= списку пользователей, так как могут быть потенциально груповые чаты. Боту работать в них будет запрещено)
 CREATE TABLE public.chat (
   -- id чата
-  id integer UNIQUE,
+  id SERIAL,
   -- состояние чата
   chat_state integer REFERENCES chat_state(id),
   PRIMARY KEY (id)
