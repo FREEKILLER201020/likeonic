@@ -43,7 +43,10 @@ function Start($message, $bot) {
 	$bot->sendMessage($message->getChat()->getId(), $answer);
 }
 function SaveUser($id, $nick, $name) {
-	$query = pg_escape_string("INSERT INTO users (id, username,name) values ($id,'$nick','$name');");
+	$id = int($id);
+	$nick = pg_escape_string($nick);
+	$name = pg_escape_string($name);
+	$query = "INSERT INTO users (id, username,name) values ($id,$nick,$name);";
 	pg_query($query);
 	return $query;
 	// pg_execute($query);
