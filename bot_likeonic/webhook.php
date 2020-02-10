@@ -43,6 +43,7 @@ function Start($message, $bot) {
 }
 function SaveUser($id, $nick, $name) {
 	$query = pg_escape_string("INSERT INTO users (id, username,name) values ({$id},'$nick','$name');\n");
-	pg_execute($query);
+	pg_query($query);
+	// pg_execute($query);
 }
 ?>
