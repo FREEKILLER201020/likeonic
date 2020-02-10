@@ -42,7 +42,7 @@ CREATE TABLE public.chat (
   -- id чата
   id SERIAL,
   -- состояние чата
-  chat_id integer,
+  chat_id integer UNIQUE,
   chat_state integer REFERENCES chat_state(id),
   user_id integer REFERENCES users(id),
   PRIMARY KEY (chat_id)
@@ -86,7 +86,7 @@ CREATE TABLE public.messages_history (
   -- текст сообщения
   message text,
   -- из какого чата сообщение
-  chat_id integer REFERENCES chat(id),
+  chat_id integer REFERENCES chat(chat_id),
   -- от когого пользователя сообщение
   user_id integer REFERENCES users(id),
   PRIMARY KEY (id)
