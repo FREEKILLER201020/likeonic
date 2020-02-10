@@ -1,0 +1,58 @@
+.blue{
+	color:#99D9EA;
+}
+
+.orange{
+	color:#EFE4B0;
+}
+
+.pink{
+	color:#FFAEC9;
+}
+
+.swiper-nav-btn{
+	visibility:hidden !important;
+}
+
+/* *{
+	font-family:Helvetica !important;
+} */
+
+.ms-header::after{
+	background-color:transparent !important;
+}
+
+.ms-main-container::before{
+	background-color:transparent !important;
+}
+
+.ms-main-container{
+	padding-top:6em !important;
+}
+.ms-footer{
+	background-color:black !important;
+}
+.ms-footer__inner{
+	color:white !important;
+}
+
+.hamburger-label{
+	font-size:20px !important;
+	color:white !important;
+}
+
+.hamburger-inner{
+	background-color:white !important;
+}
+
+.hamburger-inner::before{
+	background-color:white !important;
+}
+
+.hamburger-inner::after{
+	background-color:white !important;
+}
+
+body{
+	height:100vh !important;
+}
