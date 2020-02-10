@@ -45,7 +45,7 @@ CREATE TABLE public.chat (
   chat_id integer UNIQUE,
   chat_state integer REFERENCES chat_state(id),
   user_id integer REFERENCES users(id),
-  PRIMARY KEY (id)
+  PRIMARY KEY (chat_id)
 )
 WITH (
     OIDS = FALSE
