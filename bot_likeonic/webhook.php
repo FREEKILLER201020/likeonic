@@ -19,14 +19,15 @@ $bot = new \TelegramBot\Api\Client($token);
 $bot->command('start', function ($message) use ($bot) {
 	Start($message, $bot);
 });
-// $bot->on(function ($Update) use ($bot) {
+$bot->on(function ($Update) use ($bot) {
 
-// 	$message = $Update->getMessage();
+	$message = $Update->getMessage();
 
-// 	$mtext = $message->getText();
-// 	$cid = $message->getChat()->getId();
-// 	$user = $message->getFrom()->getId();
-// }
+	$mtext = $message->getText();
+	$chat_id = $message->getChat()->getId();
+	$user_id = $message->getFrom()->getId();
+	SaveMessage($mtext, $chat_id, $user_id);
+}
 
 $bot->run();
 pg_close($dbconn);
