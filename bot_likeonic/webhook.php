@@ -15,6 +15,11 @@ $token = $config['token'];
 // Инициализация бота
 $bot = new \TelegramBot\Api\Client($token);
 
+// команда для start
+$bot->command('start', function ($message) use ($bot) {
+	Start($message, $bot);
+});
+
 $bot->on(function ($Update) use ($bot) {
 
 	$message = $Update->getMessage();
@@ -27,11 +32,6 @@ $bot->on(function ($Update) use ($bot) {
 	$bot->sendMessage($message->getChat()->getId(), $answer);
 }, function ($message) use ($name) {
 	return true; // когда тут true - команда проходит
-});
-
-// команда для start
-$bot->command('start', function ($message) use ($bot) {
-	Start($message, $bot);
 });
 
 $bot->run();
