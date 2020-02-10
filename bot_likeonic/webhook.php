@@ -42,7 +42,7 @@ function Start($message, $bot) {
 	$name = $message->getFrom()->getFirstName();
 	SaveUser($message->getFrom()->getId(), $nick, $name);
 	SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
-	// SaveMessage($message->getText(), $message->getChat()->getId(), $message->getFrom()->getId());
+	SaveMessage($message->getText(), $message->getChat()->getId(), $message->getFrom()->getId());
 	// $query = "INSERT INTO users" . $db_name . " (id, username,name,chat_id) values ({$message->getFrom()->getId()},'$nick','$name',{$message->getChat()->getId()});\n";
 	// $result = pg_query($query) or $answer = 'Не удалось соединиться: ' . pg_last_error();
 	// if (mb_stripos($answer, "Не удалось соединиться:") !== false) {
