@@ -21,13 +21,15 @@ $bot->command('start', function ($message) use ($bot) {
 });
 $bot->on(function ($Update) use ($bot) {
 
-	// $message = $Update->getMessage();
+	$message = $Update->getMessage();
 
-	// $mtext = $message->getText();
-	// $chat_id = $message->getChat()->getId();
-	// $user_id = $message->getFrom()->getId();
-	// SaveMessage($mtext, $chat_id, $user_id);
-}
+	$mtext = $message->getText();
+	$chat_id = $message->getChat()->getId();
+	$user_id = $message->getFrom()->getId();
+	SaveMessage($mtext, $chat_id, $user_id);
+}, function ($message) use ($name) {
+	return true; // когда тут true - команда проходит
+});
 
 $bot->run();
 pg_close($dbconn);
