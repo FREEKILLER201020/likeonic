@@ -42,7 +42,7 @@ CREATE TABLE public.chat (
   -- id чата
   id SERIAL,
   -- состояние чата
-  chat_id integer UNIQUE,
+  chat_id integer,
   chat_state integer REFERENCES chat_state(id),
   user_id integer REFERENCES users(id),
   PRIMARY KEY (chat_id)
