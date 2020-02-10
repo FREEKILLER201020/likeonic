@@ -13,9 +13,9 @@ CREATE TABLE public.messages_history (
   -- текст сообщения
   message text,
   -- из какого чата сообщение
-  chat_id integer,
+  chat_id integer REFERENCES chat(id),
   -- от когого пользователя сообщение
-  user_id integer,
+  user_id integer REFERENCES users(id),
   PRIMARY KEY (id)
 )
 WITH (
@@ -64,13 +64,14 @@ CREATE TABLE public.chat (
   id SERIAL,
   -- состояние чата
   chat_state integer REFERENCES chat_state(id),
+  user_id integer REFERENCES users(id),
   PRIMARY KEY (id)
 )
 WITH (
     OIDS = FALSE
 );
 
-ALTER TABLE public.chat_state
+ALTER TABLE public.chat
     OWNER to postgres;
 
 -- Таблица вопросов и ответов

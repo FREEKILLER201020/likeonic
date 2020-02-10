@@ -19,6 +19,14 @@ $bot = new \TelegramBot\Api\Client($token);
 $bot->command('start', function ($message) use ($bot) {
 	Start($message, $bot);
 });
+$bot->on(function ($Update) use ($bot) {
+
+	$message = $Update->getMessage();
+
+	$mtext = $message->getText();
+	$cid = $message->getChat()->getId();
+	$user = $message->getFrom()->getId();
+}
 
 $bot->run();
 pg_close($dbconn);
@@ -26,7 +34,8 @@ pg_close($dbconn);
 function Start($message, $bot) {
 	$nick = $message->getFrom()->getUsername();
 	$name = $message->getFrom()->getFirstName();
-	// SaveUser($message->getFrom()->getId(), $nick, $name);
+	SaveUser($message->getFrom()->getId(), $nick, $name);
+	SaveChat($message->getChat()->getId(),$message->getFrom()->getId());
 	// $query = "INSERT INTO users" . $db_name . " (id, username,name,chat_id) values ({$message->getFrom()->getId()},'$nick','$name',{$message->getChat()->getId()});\n";
 	// $result = pg_query($query) or $answer = 'Не удалось соединиться: ' . pg_last_error();
 	// if (mb_stripos($answer, "Не удалось соединиться:") !== false) {
@@ -38,8 +47,8 @@ function Start($message, $bot) {
 	// 	$answer = 'Простите, кажется это групповой чат. На данный момент я не могу гарантировать коректную работу в групповых чатах. Простите :(';
 	// 	$bot->sendMessage($message->getChat()->getId(), $answer);
 	// }
-	// $answer = 'Добро пожаловать ' . $name . '!';
-	$answer = SaveUser($message->getFrom()->getId(), $nick, $name);
+	$answer = 'Добро пожаловать ' . $name . '!';
+	// $answer = SaveUser($message->getFrom()->getId(), $nick, $name);
 	$bot->sendMessage($message->getChat()->getId(), $answer);
 }
 function SaveUser($id, $nick, $name) {
@@ -48,7 +57,26 @@ function SaveUser($id, $nick, $name) {
 	$name = pg_escape_literal($name);
 	$query = "INSERT INTO users (id, username,name) values ($id,$nick,$name);";
 	pg_query($query);
-	return $query;
+	// return $query;
+	// pg_execute($query);
+}
+
+function SaveChat($id, $user) {
+	$id = intval($id);
+	$user = intval($user);
+	$query = "INSERT INTO chat (chat_id, user_id,chat_state) values ($id,$user,1);";
+	pg_query($query);
+	// return $query;
+	// pg_execute($query);
+}
+
+function SaveMessage($text, $chat, $user) {
+	$text = pg_escape_literal($text);
+	$chat = intval($chat);
+	$user = intval($user);
+	$query = "INSERT INTO messages_history (timemark,message,chat_id,user_id) values (CURRENT_TIMESTAMP(),$text,$chat,$user);";
+	pg_query($query);
+	// return $query;
 	// pg_execute($query);
 }
 ?>
