@@ -26,7 +26,7 @@ pg_close($dbconn);
 function Start($message, $bot) {
 	$nick = $message->getFrom()->getUsername();
 	$name = $message->getFrom()->getFirstName();
-	SaveUser($message->getFrom()->getId(), $nick, $name);
+	// SaveUser($message->getFrom()->getId(), $nick, $name);
 	// $query = "INSERT INTO users" . $db_name . " (id, username,name,chat_id) values ({$message->getFrom()->getId()},'$nick','$name',{$message->getChat()->getId()});\n";
 	// $result = pg_query($query) or $answer = 'Не удалось соединиться: ' . pg_last_error();
 	// if (mb_stripos($answer, "Не удалось соединиться:") !== false) {
@@ -38,12 +38,14 @@ function Start($message, $bot) {
 	// 	$answer = 'Простите, кажется это групповой чат. На данный момент я не могу гарантировать коректную работу в групповых чатах. Простите :(';
 	// 	$bot->sendMessage($message->getChat()->getId(), $answer);
 	// }
-	$answer = 'Добро пожаловать ' . $name . '!';
+	// $answer = 'Добро пожаловать ' . $name . '!';
+	$answer = SaveUser($message->getFrom()->getId(), $nick, $name);
 	$bot->sendMessage($message->getChat()->getId(), $answer);
 }
 function SaveUser($id, $nick, $name) {
-	$query = pg_escape_string("INSERT INTO users (id, username,name) values ({$id},'$nick','$name');\n");
+	$query = pg_escape_string("INSERT INTO users (id, username,name) values ($id,'$nick','$name');");
 	pg_query($query);
+	return $query;
 	// pg_execute($query);
 }
 ?>
