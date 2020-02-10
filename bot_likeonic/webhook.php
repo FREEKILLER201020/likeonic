@@ -19,14 +19,14 @@ $bot = new \TelegramBot\Api\Client($token);
 $bot->command('start', function ($message) use ($bot) {
 	Start($message, $bot);
 });
-$bot->on(function ($Update) use ($bot) {
+// $bot->on(function ($Update) use ($bot) {
 
-	$message = $Update->getMessage();
+// 	$message = $Update->getMessage();
 
-	$mtext = $message->getText();
-	$cid = $message->getChat()->getId();
-	$user = $message->getFrom()->getId();
-}
+// 	$mtext = $message->getText();
+// 	$cid = $message->getChat()->getId();
+// 	$user = $message->getFrom()->getId();
+// }
 
 $bot->run();
 pg_close($dbconn);
@@ -35,7 +35,7 @@ function Start($message, $bot) {
 	$nick = $message->getFrom()->getUsername();
 	$name = $message->getFrom()->getFirstName();
 	SaveUser($message->getFrom()->getId(), $nick, $name);
-	SaveChat($message->getChat()->getId(),$message->getFrom()->getId());
+	SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
 	// $query = "INSERT INTO users" . $db_name . " (id, username,name,chat_id) values ({$message->getFrom()->getId()},'$nick','$name',{$message->getChat()->getId()});\n";
 	// $result = pg_query($query) or $answer = 'Не удалось соединиться: ' . pg_last_error();
 	// if (mb_stripos($answer, "Не удалось соединиться:") !== false) {
