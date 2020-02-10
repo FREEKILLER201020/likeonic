@@ -44,8 +44,8 @@ function Start($message, $bot) {
 }
 function SaveUser($id, $nick, $name) {
 	$id = intval($id);
-	$nick = pg_escape_string($nick);
-	$name = pg_escape_string($name);
+	$nick = pg_escape_literal($nick);
+	$name = pg_escape_literal($name);
 	$query = "INSERT INTO users (id, username,name) values ($id,$nick,$name);";
 	pg_query($query);
 	return $query;
