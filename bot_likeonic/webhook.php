@@ -26,7 +26,9 @@ $bot->on(function ($Update) use ($bot) {
 	$mtext = $message->getText();
 	$chat_id = $message->getChat()->getId();
 	$user_id = $message->getFrom()->getId();
-	SaveMessage($mtext, $chat_id, $user_id);
+	// SaveMessage($mtext, $chat_id, $user_id);
+	$answer = SaveMessage($mtext, $chat_id, $user_id);
+	$bot->sendMessage($message->getChat()->getId(), $answer);
 }, function ($message) use ($name) {
 	return true; // когда тут true - команда проходит
 });
@@ -79,7 +81,7 @@ function SaveMessage($text, $chat, $user) {
 	$user = intval($user);
 	$query = "INSERT INTO messages_history (timemark,message,chat_id,user_id) values (CURRENT_TIMESTAMP(),$text,$chat,$user);";
 	pg_query($query);
-	// return $query;
+	return $query;
 	// pg_execute($query);
 }
 ?>
