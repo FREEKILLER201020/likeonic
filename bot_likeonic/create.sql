@@ -4,27 +4,6 @@ drop table if exists public.chat CASCADE;
 drop table if exists public.messages_history CASCADE;
 drop table if exists public.faq CASCADE;
 
--- История сообщений пользователей (что бы можно было понять, что он пытался найти и помочь ему)
-CREATE TABLE public.messages_history (
-  -- Время сообщения
-  timemark timestamp,
-  -- id сообщения
-  id SERIAL,
-  -- текст сообщения
-  message text,
-  -- из какого чата сообщение
-  chat_id integer REFERENCES chat(id),
-  -- от когого пользователя сообщение
-  user_id integer REFERENCES users(id),
-  PRIMARY KEY (id)
-)
-WITH (
-    OIDS = FALSE
-);
-
-ALTER TABLE public.messages_history
-    OWNER to postgres;
-
 -- Таблица пользователей, которые открыли нашего бота (данные берутся из сообщения телеграма)
 CREATE TABLE public.users (
   -- id пользователя
@@ -63,6 +42,7 @@ CREATE TABLE public.chat (
   -- id чата
   id SERIAL,
   -- состояние чата
+  chat_id integer UNIQUE,
   chat_state integer REFERENCES chat_state(id),
   user_id integer REFERENCES users(id),
   PRIMARY KEY (id)
@@ -97,6 +77,26 @@ WITH (
 ALTER TABLE public.faq
     OWNER to postgres;
 
+-- История сообщений пользователей (что бы можно было понять, что он пытался найти и помочь ему)
+CREATE TABLE public.messages_history (
+  -- Время сообщения
+  timemark timestamp,
+  -- id сообщения
+  id SERIAL,
+  -- текст сообщения
+  message text,
+  -- из какого чата сообщение
+  chat_id integer REFERENCES chat(id),
+  -- от когого пользователя сообщение
+  user_id integer REFERENCES users(id),
+  PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.messages_history
+    OWNER to postgres;
 
 insert into chat_state (id,type) values (1,'idle');
 insert into chat_state (id,type) values (2,'general');
