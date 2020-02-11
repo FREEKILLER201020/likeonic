@@ -38,7 +38,7 @@ $bot->on(function ($Update) use ($bot) {
 	$answer = AskCurrentQuestion($user_id);
 	$tmp = AskNextQuestion($user_id);
 	$keyboard = $tmp[1];
-	$answers . +$tmp[0];
+	$answers .= $tmp[0];
 	// $keyboard = AskCurrentAnswers($user_id);
 	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
 	// $bot->sendMessage($message->getChat()->getId(), $answer);
@@ -132,8 +132,8 @@ function AskNextQuestion($user) {
 	$question = "\n";
 	while ($data = pg_fetch_object($result)) {
 		array_push($answers, ["text" => $i]);
-		$i++;
 		$question .= $i . ") " . $data->question . "\n";
+		$i++;
 	}
 	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([$answers], true, true);
 	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
