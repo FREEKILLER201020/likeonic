@@ -110,7 +110,7 @@ CREATE TABLE public.chat (
   chat_id integer UNIQUE,
   chat_state integer REFERENCES chat_state(id),
   user_id integer REFERENCES users(id),
-  -- current_question integer REFERENCES questions(id),
+  current_question integer REFERENCES questions(id),
   PRIMARY KEY (chat_id)
 )
 WITH (
@@ -132,6 +132,7 @@ CREATE TABLE public.messages_history (
   chat_id integer REFERENCES chat(chat_id),
   -- от когого пользователя сообщение
   user_id integer REFERENCES users(id),
+  bot_flag boolean DEFAULT 'false',
   PRIMARY KEY (id)
 )
 WITH (

@@ -34,7 +34,8 @@ $bot->on(function ($Update) use ($bot) {
 		SaveUser($message->getFrom()->getId(), $nick, $name);
 		SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
 	}
-	$answer = SaveMessage($mtext, $chat_id, $user_id);
+	SaveMessage($mtext, $chat_id, $user_id);
+	$answer = AskCurrentQuestion($user_id);
 	$bot->sendMessage($message->getChat()->getId(), $answer);
 }, function ($message) use ($name) {
 	return true; // когда тут true - команда проходит
@@ -77,7 +78,7 @@ function SaveUser($id, $nick, $name) {
 function SaveChat($id, $user) {
 	$id = intval($id);
 	$user = intval($user);
-	$query = "INSERT INTO chat (chat_id, user_id,chat_state) values ($id,$user,0);";
+	$query = "INSERT INTO chat (chat_id, user_id,chat_state,current_question) values ($id,$user,0,1);";
 	pg_query($query);
 	// return $query;
 	// pg_execute($query);
@@ -89,7 +90,13 @@ function SaveMessage($text, $chat, $user) {
 	$user = intval($user);
 	$query = "INSERT INTO messages_history (timemark,message,chat_id,user_id) values (CURRENT_TIMESTAMP,$text,$chat,$user);";
 	pg_query($query);
-	return $query;
+	// return $query;
 	// pg_execute($query);
+}
+
+function AskCurrentQuestion($user) {
+	$user = intval($user);
+	$query = "Select question from questions where id=(select current_question from chats where user_id=$user);";
+	return pg_query($query);
 }
 ?>
