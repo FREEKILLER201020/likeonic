@@ -141,6 +141,7 @@ WITH (
 ALTER TABLE public.messages_history
     OWNER to postgres;
 
+insert into chat_state (id,type) values (0,'lang');
 insert into chat_state (id,type) values (1,'idle');
 insert into chat_state (id,type) values (2,'general');
 insert into chat_state (id,type) values (3,'web_app');

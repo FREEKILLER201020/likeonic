@@ -16,9 +16,9 @@ $token = $config['token'];
 $bot = new \TelegramBot\Api\Client($token);
 
 // команда для start
-$bot->command('start', function ($message) use ($bot) {
-	Start($message, $bot);
-});
+// $bot->command('start', function ($message) use ($bot) {
+// 	Start($message, $bot);
+// });
 
 $bot->on(function ($Update) use ($bot) {
 
@@ -28,6 +28,12 @@ $bot->on(function ($Update) use ($bot) {
 	$chat_id = $message->getChat()->getId();
 	$user_id = $message->getFrom()->getId();
 	// SaveMessage($mtext, $chat_id, $user_id);
+	if (mb_stripos($mtext, "/start") !== false) {
+		$nick = $message->getFrom()->getUsername();
+		$name = $message->getFrom()->getFirstName();
+		SaveUser($message->getFrom()->getId(), $nick, $name);
+		SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
+	}
 	$answer = SaveMessage($mtext, $chat_id, $user_id);
 	$bot->sendMessage($message->getChat()->getId(), $answer);
 }, function ($message) use ($name) {
@@ -71,7 +77,7 @@ function SaveUser($id, $nick, $name) {
 function SaveChat($id, $user) {
 	$id = intval($id);
 	$user = intval($user);
-	$query = "INSERT INTO chat (chat_id, user_id,chat_state) values ($id,$user,1);";
+	$query = "INSERT INTO chat (chat_id, user_id,chat_state) values ($id,$user,0);";
 	pg_query($query);
 	// return $query;
 	// pg_execute($query);
