@@ -117,7 +117,7 @@ function AskCurrentAnswers($user) {
 		array_push($answers, $data->answer);
 	}
 	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[]], true, true);
-	return var_export($result, true);
-	// return $query;
+	// return var_export($result, true);
+	return $query;
 }
 ?>
