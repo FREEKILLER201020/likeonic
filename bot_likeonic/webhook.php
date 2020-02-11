@@ -38,8 +38,8 @@ $bot->on(function ($Update) use ($bot) {
 	$answer = AskCurrentQuestion($user_id);
 	// $keyboard=AskCurrentAnswers($user_id);
 	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
-	$bot->sendMessage($message->getChat()->getId(), $answer);
-	// $bot->sendMessage($message->getChat()->getId(), $answer, false, null, null, $keyboard);
+	// $bot->sendMessage($message->getChat()->getId(), $answer);
+	$bot->sendMessage($message->getChat()->getId(), $answer, false, null, null, $keyboard);
 }, function ($message) use ($name) {
 	return true; // когда тут true - команда проходит
 });
