@@ -115,7 +115,7 @@ function AskCurrentAnswers($user) {
 	while ($data = pg_fetch_object($result)) {
 		array_push($answers, "text"=>$data->answer);
 	}
- 	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[$answers]], true, true);
+ 	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[$answers]], true, true);
  	return $keyboard;
  	// return $query;
 }
