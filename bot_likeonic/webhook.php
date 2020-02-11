@@ -36,7 +36,7 @@ $bot->on(function ($Update) use ($bot) {
 	}
 	SaveMessage($mtext, $chat_id, $user_id);
 	$answer = AskCurrentQuestion($user_id);
-	$answer = AskCurrentAnswers($user_id);
+	$answer = AskNextQuestion($user_id);
 	// $keyboard = AskCurrentAnswers($user_id);
 	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
 	// $bot->sendMessage($message->getChat()->getId(), $answer);
@@ -115,6 +115,19 @@ function AskCurrentAnswers($user) {
 	$answers = array();
 	while ($data = pg_fetch_object($result)) {
 		array_push($answers, $data->answer);
+	}
+	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[]], true, true);
+	// return var_export($result, true);
+	return $query;
+}
+
+function AskNextQuestion($user) {
+	$user = intval($user);
+	$query = "Select question from questions where parent_id=(select current_question from chats where user_id=$user);";
+	$result = pg_query($query);
+	$answers = array();
+	while ($data = pg_fetch_object($result)) {
+		array_push($answers, $data->question);
 	}
 	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[]], true, true);
 	// return var_export($result, true);
