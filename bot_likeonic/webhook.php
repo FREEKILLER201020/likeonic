@@ -36,9 +36,9 @@ $bot->on(function ($Update) use ($bot) {
 	}
 	SaveMessage($mtext, $chat_id, $user_id);
 	$answer = AskCurrentQuestion($user_id);
-	$answer = AskNextQuestion($user_id);
+	$keyboard = AskNextQuestion($user_id);
 	// $keyboard = AskCurrentAnswers($user_id);
-	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
+	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
 	// $bot->sendMessage($message->getChat()->getId(), $answer);
 	$bot->sendMessage($message->getChat()->getId(), $answer, false, null, null, $keyboard);
 }, function ($message) use ($name) {
