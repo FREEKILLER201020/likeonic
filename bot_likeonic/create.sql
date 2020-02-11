@@ -181,3 +181,7 @@ insert into questions (id,lang,question,chat_state,parent) values (6,1,'что �
 
 
 
+
+
+
+

@@ -137,6 +137,9 @@ function AskNextQuestion($user) {
 		$question .= $i . ") " . $data->question . "\n";
 		$i++;
 	}
+	array_push($answers, ["text" => $i]);
+	// TODO Это не мультиязычно!
+	$question .= $i . ") " . "Назад" . "\n";
 	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([$answers], true, true);
 	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
 	// return var_export($keyboard, true);
@@ -150,7 +153,7 @@ function AskNextQuestion($user) {
 function SetCurrentQuestion($user, $offset) {
 	$user = intval($user);
 	$offset = intval($offset);
-	$query = "Update chats set current_question=(Select id from questions where parent=(select current_question from chats where user_id=$user) offset $offset-1 limit 1) where user_id=$user;";
+	$query = "Update chats set current_question=(Select id from questions where parent=(select current_question from chats where user_id=$user) UNION ALL (Select parent as id from questions where id=(select current_question from chats where user_id=$user)) offset $offset-1 limit 1) where user_id=$user;";
 	$result = pg_query($query);
 }
 ?>
