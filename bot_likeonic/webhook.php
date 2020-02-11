@@ -38,7 +38,7 @@ $bot->on(function ($Update) use ($bot) {
 	$answer = AskCurrentQuestion($user_id);
 	$tmp = AskNextQuestion($user_id);
 	$keyboard = $tmp[1];
-	$answer = $tmp[0];
+	$answer .= $tmp[0];
 	// $keyboard = AskCurrentAnswers($user_id);
 	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
 	// $bot->sendMessage($message->getChat()->getId(), $answer);
