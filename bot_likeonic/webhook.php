@@ -140,6 +140,7 @@ function AskNextQuestion($user) {
 	// return var_export($keyboard, true);
 	$res = array();
 	$res[0] = $question;
+	$res[0] = $query;
 	$res[1] = $keyboard;
 	return $res;
 }
