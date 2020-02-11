@@ -110,7 +110,7 @@ CREATE TABLE public.chats (
   chat_id integer UNIQUE,
   chat_state integer REFERENCES chat_state(id),
   user_id integer REFERENCES users(id),
-  current_question integer REFERENCES questions(id) is not null,
+  current_question integer REFERENCES questions(id) not null,
   PRIMARY KEY (chat_id)
 )
 WITH (
