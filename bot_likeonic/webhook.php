@@ -38,8 +38,8 @@ $bot->on(function ($Update) use ($bot) {
 	$answer = AskCurrentQuestion($user_id);
 	// $keyboard=AskCurrentAnswers($user_id);
 	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
-	// $bot->sendMessage($message->getChat()->getId(), $answer);
-	$bot->sendMessage($message->getChat()->getId(), $answer, false, null, null, $keyboard);
+	$bot->sendMessage($message->getChat()->getId(), $answer);
+	// $bot->sendMessage($message->getChat()->getId(), $answer, false, null, null, $keyboard);
 }, function ($message) use ($name) {
 	return true; // когда тут true - команда проходит
 });
@@ -106,17 +106,17 @@ function AskCurrentQuestion($user) {
 	}
 	return $question;
 	// return $query;
-}; 
+};
 function AskCurrentAnswers($user) {
-	$user = intval($user);
-	$query = "Select answer from answers where question=(select current_question from chats where user_id=$user);";
-	$result = pg_query($query);
-	$answers = array();
-	while ($data = pg_fetch_object($result)) {
-		array_push($answers, "text"=>$data->answer);
-	}
- 	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[$answers]], true, true);
- 	return $keyboard;
- 	// return $query;
+	// $user = intval($user);
+	// $query = "Select answer from answers where question=(select current_question from chats where user_id=$user);";
+	// $result = pg_query($query);
+	// $answers = array();
+	// while ($data = pg_fetch_object($result)) {
+	// 	array_push($answers, "text"=>$data->answer);
+	// }
+	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[$answers]], true, true);
+	// return $keyboard;
+	// return $query;
 }
 ?>
