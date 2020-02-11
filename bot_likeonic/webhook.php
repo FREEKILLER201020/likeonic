@@ -129,12 +129,9 @@ function AskNextQuestion($user) {
 	while ($data = pg_fetch_object($result)) {
 		array_push($answers, ["text" => $data->question]);
 	}
-	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[["text" => "60"],
-		["text" => "45"],
-		["text" => "30"],
-		["text" => "15"]]], true, true);
+	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([$answers], true, true);
 	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
-	return var_export($keyboard, true);
-	// return $keyboard;
+	// return var_export($keyboard, true);
+	return $keyboard;
 }
 ?>
