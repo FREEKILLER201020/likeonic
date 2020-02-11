@@ -163,6 +163,9 @@ insert into questions (id,lang,question,chat_state) values (1,1,'Добро по
 insert into questions (id,lang,question,chat_state,parent) values (2,1,'Вопросы по WEB приложению',1,1);
 insert into questions (id,lang,question,chat_state,parent) values (3,1,'Вопросы по мобильному приложению',1,1);
 insert into questions (id,lang,question,chat_state,parent) values (4,1,'Вопросы по приложению для персонала',1,1);
+insert into questions (id,lang,question,chat_state,parent) values (5,1,'что то1',3,2);
+insert into questions (id,lang,question,chat_state,parent) values (6,1,'что то2',3,2);
+
 
 
 -- insert into faq (id,chat_state,question_ru,answer_ru) values (0,1,'Добро пожаловать в чат-бота Likeonic!','');

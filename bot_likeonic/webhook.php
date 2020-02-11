@@ -33,6 +33,8 @@ $bot->on(function ($Update) use ($bot) {
 		$name = $message->getFrom()->getFirstName();
 		SaveUser($message->getFrom()->getId(), $nick, $name);
 		SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
+	} else if (is_numeric($mtext)) {
+		SetCurrentQuestion($user_id, $mtext);
 	}
 	SaveMessage($mtext, $chat_id, $user_id);
 	$answer = AskCurrentQuestion($user_id);
@@ -143,5 +145,12 @@ function AskNextQuestion($user) {
 	$res[0] = $query;
 	$res[1] = $keyboard;
 	return $res;
+}
+
+function SetCurrentQuestion($user, $offset) {
+	$user = intval($user);
+	$offset = intval($offset);
+	$query = "Update chats set current_question=(Select id from questions where parent=(select current_question from chats where user_id=$user) offset $offset-1 limit 1) where user_id=$user;";
+	$result = pg_query($query);
 }
 ?>
