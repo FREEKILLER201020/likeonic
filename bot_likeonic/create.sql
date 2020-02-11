@@ -1,6 +1,6 @@
 drop table if exists public.users CASCADE;
 drop table if exists public.chat_state CASCADE;
-drop table if exists public.chat CASCADE;
+drop table if exists public.chats CASCADE;
 drop table if exists public.messages_history CASCADE;
 drop table if exists public.faq CASCADE;
 drop table if exists public.questions CASCADE;
@@ -103,7 +103,7 @@ ALTER TABLE public.answers
     OWNER to postgres;
 
 -- Список всех чатов (!= списку пользователей, так как могут быть потенциально груповые чаты. Боту работать в них будет запрещено)
-CREATE TABLE public.chat (
+CREATE TABLE public.chats (
   -- id чата
   id SERIAL,
   -- состояние чата
@@ -129,7 +129,7 @@ CREATE TABLE public.messages_history (
   -- текст сообщения
   message text,
   -- из какого чата сообщение
-  chat_id integer REFERENCES chat(chat_id),
+  chat_id integer REFERENCES chats(chat_id),
   -- от когого пользователя сообщение
   user_id integer REFERENCES users(id),
   bot_flag boolean DEFAULT 'false',

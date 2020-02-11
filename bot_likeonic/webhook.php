@@ -97,7 +97,7 @@ function SaveMessage($text, $chat, $user) {
 function AskCurrentQuestion($user) {
 	$user = intval($user);
 	$query = "Select question from questions where id=(select current_question from chats where user_id=$user);";
-	// return pg_query($query);
-	return $query;
+	return pg_query($query);
+	// return $query;
 }
 ?>
