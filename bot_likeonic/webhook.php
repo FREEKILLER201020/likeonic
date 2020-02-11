@@ -80,7 +80,7 @@ function SaveUser($id, $nick, $name) {
 function SaveChat($id, $user) {
 	$id = intval($id);
 	$user = intval($user);
-	$query = "INSERT INTO chat (chat_id, user_id,chat_state,current_question) values ($id,$user,0,1);";
+	$query = "INSERT INTO chats (chat_id, user_id,chat_state,current_question) values ($id,$user,0,1);";
 	pg_query($query);
 	// return $query;
 	// pg_execute($query);
@@ -100,10 +100,10 @@ function AskCurrentQuestion($user) {
 	$user = intval($user);
 	$query = "Select question from questions where id=(select current_question from chats where user_id=$user);";
 	$result = pg_query($query);
-	// while ($data = pg_fetch_object($result)) {
-	// 	$question = $data->question;
-	// }
-	// return $question;
-	return $query;
+	while ($data = pg_fetch_object($result)) {
+		$question = $data->question;
+	}
+	return $question;
+	// return $query;
 }; // function AskCurrentAnswers($user) {; // 	$user = intval($user);; // 	$query = "Select answer from answers where question=(select current_question from chats where user_id=$user);";; // 	$result = pg_query($query);; // 	$answers = array();; // 	while ($data = pg_fetch_object($result)) {; // 		array_push($answers, "text"=>$data->answer);; // 	}; // 	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[$answers]], true, true);; // 	return $keyboard;; // 	// return $query;; // }
 ?>
