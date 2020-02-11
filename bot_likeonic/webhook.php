@@ -123,14 +123,14 @@ function AskCurrentAnswers($user) {
 
 function AskNextQuestion($user) {
 	$user = intval($user);
-	$query = "Select question from questions where parent_id=(select current_question from chats where user_id=$user);";
+	$query = "Select question from questions where parent=(select current_question from chats where user_id=$user);";
 	$result = pg_query($query);
 	$answers = array();
 	while ($data = pg_fetch_object($result)) {
-		array_push($answers, $data->question);
+		array_push($answers, ["text" => $data->question]);
 	}
 	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[]], true, true);
-	// return var_export($result, true);
-	return $query;
+	return var_export($answers, true);
+	// return $query;
 }
 ?>
