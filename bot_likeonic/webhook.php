@@ -33,6 +33,15 @@ $bot->on(function ($Update) use ($bot) {
 		$name = $message->getFrom()->getFirstName();
 		SaveUser($message->getFrom()->getId(), $nick, $name);
 		SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
+	} else if (is_null(GetUserLang($user_id))) {
+		$tmp = LangQuestion();
+		$keyboard = $tmp[1];
+		$answer .= $tmp[0];
+		// $keyboard = AskCurrentAnswers($user_id);
+		// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
+		// $bot->sendMessage($message->getChat()->getId(), $answer);
+		$bot->sendMessage($message->getChat()->getId(), $answer, false, null, null, $keyboard);
+		return;
 	} else if (is_numeric($mtext)) {
 		SetCurrentQuestion($user_id, $mtext);
 	}
@@ -148,6 +157,67 @@ function AskNextQuestion($user) {
 	// $res[0] = $query;
 	$res[1] = $keyboard;
 	return $res;
+}
+
+function GetCurrentState($user) {
+	$user = intval($user);
+	$query = "Select chat_state from chats where user_id=$user;";
+	$result = pg_query($query);
+	while ($data = pg_fetch_object($result)) {
+
+		$state = $data->chat_state;
+	}
+	return $state;
+}
+
+function GetUserLang($user) {
+	$user = intval($user);
+	$query = "Select lang from users where id=$user;";
+	$result = pg_query($query);
+	while ($data = pg_fetch_object($result)) {
+
+		$lang = $data->lang;
+	}
+	return $lang;
+}
+
+function LangQuestion() {
+	$query = "Select id,lang from langs;";
+	$result = pg_query($query);
+	$answers = array();
+	$answer = "Please select your language\n";
+	while ($data = pg_fetch_object($result)) {
+		array_push($answers, ["text" => $data->id]);
+		$answer .= $data->id . ") " . $data->lang . "\n";
+	}
+	// array_push($answers, ["text" => $i]);
+	// TODO Это не мультиязычно!
+	// $question .= $i . ") " . "Назад" . "\n";
+	$keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([$answers], true, true);
+	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
+	// return var_export($keyboard, true);
+	$res = array();
+	$res[0] = $answer;
+	// $res[0] = $query;
+	$res[1] = $keyboard;
+	return $res;
+}
+
+function SetUserLang($user, $lang) {
+	$user = intval($user);
+	$lang = intval($lang);
+	$query = "Select lang from langs where id=$lang;";
+	$result = pg_query($query);
+	$lang_t = "";
+	while ($data = pg_fetch_object($result)) {
+
+		$lang_t = $data->lang;
+	}
+	if ($lang_t != "") {
+		$query = "Update users set lang=$lang where id=$lang;";
+		$result = pg_query($query);
+	}
+	return $lang;
 }
 
 function SetCurrentQuestion($user, $offset) {
