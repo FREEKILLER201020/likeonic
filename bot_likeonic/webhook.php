@@ -88,42 +88,42 @@ function Start($message, $bot) {
 	// $answer = SaveUser($message->getFrom()->getId(), $nick, $name);
 	$bot->sendMessage($message->getChat()->getId(), $answer);
 }
-// function SaveUser($id, $nick, $name) {
-// 	$id = intval($id);
-// 	$nick = pg_escape_literal($nick);
-// 	$name = pg_escape_literal($name);
-// 	$query = "Select id from users where id=$id;";
-// 	$result = pg_query($query) or SaveError(pg_last_error());
-// 	while ($data = pg_fetch_object($result)) {
-// 		$res = $data->id;
-// 	}
-// 	if (!isset($res)) {
-
-// 		$query = "INSERT INTO users (id, username,name) values ($id,$nick,$name);";
-// 		pg_query($query);
-// 	}
-
-// 	// return $query;
-// 	// pg_execute($query);
-// }
 
 function SaveUser($id, $nick, $name) {
 	$id = intval($id);
 	$nick = pg_escape_literal($nick);
 	$name = pg_escape_literal($name);
-	$query = "INSERT INTO users (id, username,name) values ($id,$nick,$name);";
-	pg_query($query) or SaveError($query, pg_last_error());
+	$query = "Select id from users where id=$id;";
+	$result = pg_query($query) or SaveError($query, pg_last_error());
+	while ($data = pg_fetch_object($result)) {
+		$res = $data->id;
+	}
+	if (!isset($res)) {
+
+		$query = "INSERT INTO users (id, username,name) values ($id,$nick,$name);";
+		pg_query($query) or SaveError($query, pg_last_error());
+	}
+
 	// return $query;
 	// pg_execute($query);
 }
+
+// function SaveUser($id, $nick, $name) {
+// 	$id = intval($id);
+// 	$nick = pg_escape_literal($nick);
+// 	$name = pg_escape_literal($name);
+// 	$query = "INSERT INTO users (id, username,name) values ($id,$nick,$name);";
+// 	pg_query($query) or SaveError($query, pg_last_error());
+// 	// return $query;
+// 	// pg_execute($query);
+// }
 
 function SaveError($q, $e) {
 	$q = pg_escape_literal($q);
 	$e = pg_escape_literal($e);
 
-	$query = "INSERT INTO log (query,error) values ($q,$e);";
-	// $result = pg_query($query) or SaveError(pg_last_error());
-	$result = pg_query($query);
+	$query = "INSERT INTO log (timemark query,error) values (CURRENT_TIMESTAMP,$q,$e);";
+	$result = pg_query($query) or SaveError($query, pg_last_error());
 }
 
 function SaveChat($id, $user) {
