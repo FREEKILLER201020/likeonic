@@ -34,6 +34,13 @@ $bot->on(function ($Update) use ($bot) {
 		SaveUser($message->getFrom()->getId(), $nick, $name);
 		SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
 	}
+	if (is_numeric($mtext)) {
+		if (GetUserLang($user_id) == "") {
+			SetUserLang($user_id, $mtext);
+		} else {
+			SetCurrentQuestion($user_id, $mtext);
+		}
+	}
 	if (GetUserLang($user_id) == "") {
 		$tmp = LangQuestion();
 		$keyboard = $tmp[1];
@@ -43,9 +50,6 @@ $bot->on(function ($Update) use ($bot) {
 		// $bot->sendMessage($message->getChat()->getId(), $answer);
 		$bot->sendMessage($message->getChat()->getId(), $answer, false, null, null, $keyboard);
 		return;
-	}
-	if (is_numeric($mtext)) {
-		SetCurrentQuestion($user_id, $mtext);
 	}
 	SaveMessage($mtext, $chat_id, $user_id);
 	$answer = AskCurrentQuestion($user_id);
