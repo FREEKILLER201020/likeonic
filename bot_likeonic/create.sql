@@ -151,9 +151,9 @@ insert into chat_state (id,type) values (4,'app');
 insert into chat_state (id,type) values (5,'staff_app');
 insert into chat_state (id,type) values (6,'help');
 
-insert into langs (id,lang,prom) values (1,'Русский',"Пожалуйста, выберите ваш язык");
-insert into langs (id,lang,prom) values (2,'English',"Please select your language");
-insert into langs (id,lang,prom) values (3,'Ελληνικά',"Επιλέξτε τη γλώσσα σας");
+insert into langs (id,lang,prom) values (1,'Русский','Пожалуйста, выберите ваш язык');
+insert into langs (id,lang,prom) values (2,'English','Please select your language');
+insert into langs (id,lang,prom) values (3,'Ελληνικά','Επιλέξτε τη γλώσσα σας');
 
 -- insert into 
 
