@@ -33,7 +33,8 @@ $bot->on(function ($Update) use ($bot) {
 		$name = $message->getFrom()->getFirstName();
 		SaveUser($message->getFrom()->getId(), $nick, $name);
 		SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
-	} else if (GetUserLang($user_id) == "") {
+	}
+	if (GetUserLang($user_id) == "") {
 		$tmp = LangQuestion();
 		$keyboard = $tmp[1];
 		$answer .= $tmp[0];
@@ -42,7 +43,8 @@ $bot->on(function ($Update) use ($bot) {
 		// $bot->sendMessage($message->getChat()->getId(), $answer);
 		$bot->sendMessage($message->getChat()->getId(), $answer, false, null, null, $keyboard);
 		return;
-	} else if (is_numeric($mtext)) {
+	}
+	if (is_numeric($mtext)) {
 		SetCurrentQuestion($user_id, $mtext);
 	}
 	SaveMessage($mtext, $chat_id, $user_id);
