@@ -33,7 +33,7 @@ $bot->on(function ($Update) use ($bot) {
 		$name = $message->getFrom()->getFirstName();
 		SaveUser($message->getFrom()->getId(), $nick, $name);
 		SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
-	} else if (is_null(GetUserLang($user_id))) {
+	} else if (GetUserLang($user_id) == "") {
 		$tmp = LangQuestion();
 		$keyboard = $tmp[1];
 		$answer .= $tmp[0];
