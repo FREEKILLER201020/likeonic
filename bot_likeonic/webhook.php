@@ -112,7 +112,7 @@ function SaveUser($id, $nick, $name) {
 	$nick = pg_escape_literal($nick);
 	$name = pg_escape_literal($name);
 	$query = "INSERT INTO users (id, username,name) values ($id,$nick,$name);";
-	pg_query($query) or SaveError(pg_last_error());
+	pg_query($query) or SaveError($query, pg_last_error());
 	// return $query;
 	// pg_execute($query);
 }
@@ -122,7 +122,8 @@ function SaveError($q, $e) {
 	$e = pg_escape_literal($e);
 
 	$query = "INSERT INTO log (query,error) values ($q,$e);";
-	$result = pg_query($query) or SaveError(pg_last_error());
+	// $result = pg_query($query) or SaveError(pg_last_error());
+	$result = pg_query($query);
 }
 
 function SaveChat($id, $user) {
