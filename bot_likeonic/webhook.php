@@ -205,7 +205,7 @@ function LangQuestion() {
 	// $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardHide();
 	// return var_export($keyboard, true);
 	$res = array();
-	$res[0] = $answer;
+	$res[0] = $answer . $answer2;
 	// $res[0] = $query;
 	$res[1] = $keyboard;
 	return $res;
