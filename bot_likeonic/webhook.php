@@ -119,7 +119,7 @@ function SaveMessage($text, $chat, $user) {
 
 function AskCurrentQuestion($user) {
 	$user = intval($user);
-	$query = "Select question from questions where id=(select current_question from chats where user_id=$user);";
+	$query = "Select question from questions where id=(select current_question from chats where user_id=$user) and lang=(Select lang from users where id=$user);";
 	$result = pg_query($query);
 	while ($data = pg_fetch_object($result)) {
 		$question = $data->question;
@@ -142,7 +142,7 @@ function AskCurrentAnswers($user) {
 
 function AskNextQuestion($user) {
 	$user = intval($user);
-	$query = "Select question from questions where parent=(select current_question from chats where user_id=$user);";
+	$query = "Select question from questions where parent=(select current_question from chats where user_id=$user)  and lang=(Select lang from users where id=$user);";
 	$result = pg_query($query);
 	$answers = array();
 	$i = 1;
@@ -188,13 +188,15 @@ function GetUserLang($user) {
 }
 
 function LangQuestion() {
-	$query = "Select id,lang from langs;";
+	$query = "Select id,lang,prom from langs;";
 	$result = pg_query($query);
 	$answers = array();
-	$answer = "Please select your language\n";
+	$answer = "";
+	$answer2 = "";
 	while ($data = pg_fetch_object($result)) {
 		array_push($answers, ["text" => $data->id]);
-		$answer .= $data->id . ") " . $data->lang . "\n";
+		$answer .= $data->prom . "\n";
+		$answer2 .= $data->id . ") " . $data->lang . "\n";
 	}
 	// array_push($answers, ["text" => $i]);
 	// TODO Это не мультиязычно!

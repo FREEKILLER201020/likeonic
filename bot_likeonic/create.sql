@@ -45,6 +45,7 @@ ALTER TABLE public.chat_state
 CREATE TABLE public.langs (
   id integer UNIQUE,
   lang text,
+  prom text,
   PRIMARY KEY (id)
 )
 WITH (
@@ -150,9 +151,9 @@ insert into chat_state (id,type) values (4,'app');
 insert into chat_state (id,type) values (5,'staff_app');
 insert into chat_state (id,type) values (6,'help');
 
-insert into langs (id,lang) values (1,'ru');
-insert into langs (id,lang) values (2,'en');
-insert into langs (id,lang) values (3,'gr');
+insert into langs (id,lang,prom) values (1,'Русский',"Пожалуйста, выберите ваш язык");
+insert into langs (id,lang,prom) values (2,'English',"Please select your language");
+insert into langs (id,lang,prom) values (3,'Ελληνικά',"Επιλέξτε τη γλώσσα σας");
 
 -- insert into 
 
