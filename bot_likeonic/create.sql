@@ -6,6 +6,7 @@ drop table if exists public.faq CASCADE;
 drop table if exists public.questions CASCADE;
 drop table if exists public.answers CASCADE;
 drop table if exists public.langs CASCADE;
+drop table if exists public.log CASCADE;
 
 -- Таблица пользователей, которые открыли нашего бота (данные берутся из сообщения телеграма)
 CREATE TABLE public.users (
@@ -141,6 +142,24 @@ WITH (
 );
 
 ALTER TABLE public.messages_history
+    OWNER to postgres;
+
+-- История сообщений пользователей (что бы можно было понять, что он пытался найти и помочь ему)
+CREATE TABLE public.log (
+  -- Время сообщения
+  timemark timestamp,
+  -- id сообщения
+  id SERIAL,
+  -- текст сообщения
+  query text,
+  error text,
+  PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.log
     OWNER to postgres;
 
 insert into chat_state (id,type) values (0,'lang');

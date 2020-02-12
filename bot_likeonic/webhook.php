@@ -27,13 +27,14 @@ $bot->on(function ($Update) use ($bot) {
 	$mtext = $message->getText();
 	$chat_id = $message->getChat()->getId();
 	$user_id = $message->getFrom()->getId();
+	$nick = $message->getFrom()->getUsername();
+	$name = $message->getFrom()->getFirstName();
 	// SaveMessage($mtext, $chat_id, $user_id);
-	if (mb_stripos($mtext, "/start") !== false) {
-		$nick = $message->getFrom()->getUsername();
-		$name = $message->getFrom()->getFirstName();
-		SaveUser($message->getFrom()->getId(), $nick, $name);
-		SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
-	}
+
+	SaveUser($message->getFrom()->getId(), $nick, $name);
+	SaveChat($message->getChat()->getId(), $message->getFrom()->getId());
+	SaveMessage($mtext, $chat_id, $user_id);
+
 	if (is_numeric($mtext)) {
 		if (GetUserLang($user_id) == "") {
 			SetUserLang($user_id, $mtext);
@@ -51,7 +52,6 @@ $bot->on(function ($Update) use ($bot) {
 		$bot->sendMessage($message->getChat()->getId(), $answer, false, null, null, $keyboard);
 		return;
 	}
-	SaveMessage($mtext, $chat_id, $user_id);
 	$answer = AskCurrentQuestion($user_id);
 	$tmp = AskNextQuestion($user_id);
 	$keyboard = $tmp[1];
@@ -88,14 +88,41 @@ function Start($message, $bot) {
 	// $answer = SaveUser($message->getFrom()->getId(), $nick, $name);
 	$bot->sendMessage($message->getChat()->getId(), $answer);
 }
+// function SaveUser($id, $nick, $name) {
+// 	$id = intval($id);
+// 	$nick = pg_escape_literal($nick);
+// 	$name = pg_escape_literal($name);
+// 	$query = "Select id from users where id=$id;";
+// 	$result = pg_query($query) or SaveError(pg_last_error());
+// 	while ($data = pg_fetch_object($result)) {
+// 		$res = $data->id;
+// 	}
+// 	if (!isset($res)) {
+
+// 		$query = "INSERT INTO users (id, username,name) values ($id,$nick,$name);";
+// 		pg_query($query);
+// 	}
+
+// 	// return $query;
+// 	// pg_execute($query);
+// }
+
 function SaveUser($id, $nick, $name) {
 	$id = intval($id);
 	$nick = pg_escape_literal($nick);
 	$name = pg_escape_literal($name);
 	$query = "INSERT INTO users (id, username,name) values ($id,$nick,$name);";
-	pg_query($query);
+	pg_query($query) or SaveError(pg_last_error());
 	// return $query;
 	// pg_execute($query);
+}
+
+function SaveError($q, $e) {
+	$q = pg_escape_literal($q);
+	$e = pg_escape_literal($e);
+
+	$query = "INSERT INTO log (query,error) values ($q,$e);";
+	$result = pg_query($query) or SaveError(pg_last_error());
 }
 
 function SaveChat($id, $user) {
