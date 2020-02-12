@@ -220,7 +220,7 @@ function SetUserLang($user, $lang) {
 		$lang_t = $data->lang;
 	}
 	if ($lang_t != "") {
-		$query = "Update users set lang=$lang where id=$lang;";
+		$query = "Update users set lang=$lang where id=$user;";
 		$result = pg_query($query);
 	}
 	return $lang;
