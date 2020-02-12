@@ -130,7 +130,7 @@ function SaveChat($id, $user) {
 	$id = intval($id);
 	$user = intval($user);
 	$query = "INSERT INTO chats (chat_id, user_id,chat_state,current_question) values ($id,$user,0,1);";
-	pg_query($query);
+	pg_query($query) or SaveError($query, pg_last_error());
 	// return $query;
 	// pg_execute($query);
 }
@@ -140,7 +140,7 @@ function SaveMessage($text, $chat, $user) {
 	$chat = intval($chat);
 	$user = intval($user);
 	$query = "INSERT INTO messages_history (timemark,message,chat_id,user_id) values (CURRENT_TIMESTAMP,$text,$chat,$user);";
-	pg_query($query);
+	pg_query($query) or SaveError($query, pg_last_error());
 	// return $query;
 	// pg_execute($query);
 }
@@ -148,7 +148,7 @@ function SaveMessage($text, $chat, $user) {
 function AskCurrentQuestion($user) {
 	$user = intval($user);
 	$query = "Select question from questions where id=(select current_question from chats where user_id=$user) and lang=(Select lang from users where id=$user);";
-	$result = pg_query($query);
+	$result = pg_query($query) or SaveError($query, pg_last_error());
 	while ($data = pg_fetch_object($result)) {
 		$question = $data->question;
 	}
@@ -158,7 +158,7 @@ function AskCurrentQuestion($user) {
 function AskCurrentAnswers($user) {
 	$user = intval($user);
 	$query = "Select answer from answers where question=(select current_question from chats where user_id=$user);";
-	$result = pg_query($query);
+	$result = pg_query($query) or SaveError($query, pg_last_error());
 	$answers = array();
 	while ($data = pg_fetch_object($result)) {
 		array_push($answers, $data->answer);
@@ -171,7 +171,7 @@ function AskCurrentAnswers($user) {
 function AskNextQuestion($user) {
 	$user = intval($user);
 	$query = "Select question from questions where parent=(select current_question from chats where user_id=$user)  and lang=(Select lang from users where id=$user);";
-	$result = pg_query($query);
+	$result = pg_query($query) or SaveError($query, pg_last_error());
 	$answers = array();
 	$i = 1;
 	$question = "\n";
@@ -196,7 +196,7 @@ function AskNextQuestion($user) {
 function GetCurrentState($user) {
 	$user = intval($user);
 	$query = "Select chat_state from chats where user_id=$user;";
-	$result = pg_query($query);
+	$result = pg_query($query) or SaveError($query, pg_last_error());
 	while ($data = pg_fetch_object($result)) {
 
 		$state = $data->chat_state;
@@ -207,7 +207,7 @@ function GetCurrentState($user) {
 function GetUserLang($user) {
 	$user = intval($user);
 	$query = "Select lang from users where id=$user;";
-	$result = pg_query($query);
+	$result = pg_query($query) or SaveError($query, pg_last_error());
 	while ($data = pg_fetch_object($result)) {
 
 		$lang = $data->lang;
@@ -217,7 +217,7 @@ function GetUserLang($user) {
 
 function LangQuestion() {
 	$query = "Select id,lang,prom from langs;";
-	$result = pg_query($query);
+	$result = pg_query($query) or SaveError($query, pg_last_error());
 	$answers = array();
 	$answer = "";
 	$answer2 = "";
@@ -243,7 +243,7 @@ function SetUserLang($user, $lang) {
 	$user = intval($user);
 	$lang = intval($lang);
 	$query = "Select lang from langs where id=$lang;";
-	$result = pg_query($query);
+	$result = pg_query($query) or SaveError($query, pg_last_error());
 	$lang_t = "";
 	while ($data = pg_fetch_object($result)) {
 
@@ -251,7 +251,7 @@ function SetUserLang($user, $lang) {
 	}
 	if ($lang_t != "") {
 		$query = "Update users set lang=$lang where id=$user;";
-		$result = pg_query($query);
+		$result = pg_query($query) or SaveError($query, pg_last_error());
 	}
 	return $lang;
 }
@@ -260,6 +260,6 @@ function SetCurrentQuestion($user, $offset) {
 	$user = intval($user);
 	$offset = intval($offset);
 	$query = "Update chats set current_question=(Select id from questions where parent=(select current_question from chats where user_id=$user) UNION ALL (Select parent as id from questions where id=(select current_question from chats where user_id=$user)) offset $offset-1 limit 1) where user_id=$user;";
-	$result = pg_query($query);
+	$result = pg_query($query) or SaveError($query, pg_last_error());
 }
 ?>
